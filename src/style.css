@@ -1,0 +1,43 @@
+@font-face {
+    font-family: 'Space Mono';
+    src: url('./assets/fonts/space-mono-v6-latin-regular.woff2') format('woff2');
+}
+
+html {
+    box-sizing: border-box;
+    height: 100%;
+    background-color: #FFD88E;
+    color: white;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body {
+    height: 100%;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+img,
+canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+h1 {
+    font-family: 'Space Mono', cursive;
+}
+
+.header {
+    color: red;
+    display: flex;
+    justify-content: center;
+
+}

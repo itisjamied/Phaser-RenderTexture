@@ -1,0 +1,24 @@
+{
+  "name": "invaders_project",
+  "version": "1.0.0",
+  "description": "",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "source": "src/index.html",
+  "scripts": {
+    "start": "parcel --no-hmr",
+    "build": "parcel build"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.6.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "parcel": "^2.0.1",
+    "prettier": "^2.5.1"
+  },
+  "dependencies": {
+    "phaser": "^3.55.2",
+    "webfontloader": "^1.6.28"
+  }
+}
