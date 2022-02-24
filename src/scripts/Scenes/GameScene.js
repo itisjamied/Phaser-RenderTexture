@@ -28,6 +28,9 @@ export default class GameScene extends Phaser.Scene {
     this.load.image('person6', new URL('../../assets/person6.png', import.meta.url).href);
     this.load.image('person7', new URL('../../assets/person7.png', import.meta.url).href);
     this.load.image('person8', new URL('../../assets/person8.png', import.meta.url).href);
+    this.load.image('bubble', new URL('../../assets/thought-bubble.png', import.meta.url).href);
+    this.load.image('cheeseburger', new URL('../../assets/cheeseburger.png', import.meta.url).href);
+
   }
 
   create() {
@@ -46,15 +49,38 @@ export default class GameScene extends Phaser.Scene {
       });
     }
 
+    const rt = this.make.renderTexture({ width: 300, height: 300 });
+    console.log(rt)
+    const texture = rt.saveTexture('player');
+    texture.add('person1', 0, 100, 100, 1500, 1500);
+    texture.add('cheeseburger', 0, 120, 120, 1500, 1500);
+
+    // texture.add('down1', 0, x, y, width, height);
+    // texture.add('down2', 0, x, y, width, height);
+
     customerPositions.map((position) => {
-      console.log(position.x, position.y, position.img);
-      const customer = new Customer(this, position.x, position.y, position.img);
+      // console.log(position.x, position.y, position.img);
+      const customer = new Customer(this, position.x, position.y,  texture);
       this.customers.push(customer);
       const collider = this.physics.add.overlap(this.counter, customer, (counter, customer) => {
         this.physics.world.removeCollider(collider);
         customer.body.stop();
       });
     });
+
+    // create though bubble sprite and set it invisible
+    this.bubble = this.add.sprite(500,600, 'bubble').setScale(0.15);
+    this.bubble.setVisible(false);
+    this.cheeseburger = this.add.sprite(250, 300, 'cheeseburger').setScale(0.10);
+    this.cheeseburger.setVisible(false);
+    this.customer1 = this.add.sprite(300, 300, 'person1').setScale(0.15)
+    this.customer1.setVisible(false)
+
+    this.customerGroup = this.physics.add.group();
+    // for (let i = 0; i < 1; i ++) {
+    this.addCustomer(true);
+  // }
+
   }
 
   update() {
@@ -108,5 +134,21 @@ export default class GameScene extends Phaser.Scene {
     ]);
 
     this.spawnZone = polygon;
+  }
+
+  addCustomer(isFirstcustomer){
+    let customer1 = this.add.renderTexture(this.game.config.width / 4, isFirstcustomer ? this.game.config.width / 2 : 0, this.game.config.width / 6, this.game.config.height / 4);
+    customer1.setOrigin(0.5);
+    //this.physics.add.exisiting(customer1);
+    this.customerGroup.add(customer1);
+    this.drawCustomer(customer1);
+  } 
+
+  drawCustomer(customer){
+    
+    customer.draw(this.bubble, customer.width / 2, customer.height / 2)
+  customer.draw(this.cheeseburger, customer.width - 58, customer.height - 48)
+  customer.draw(this.customer1, customer.width - 80, customer.height)
+  console.log(customer.width, customer.height)
   }
 }

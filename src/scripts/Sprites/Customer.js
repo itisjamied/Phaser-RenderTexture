@@ -14,5 +14,7 @@ export default class Customer extends Phaser.Physics.Arcade.Sprite {
     return this;
   }
 
-  update() {}
+  update() {
+    
+  }
 }
