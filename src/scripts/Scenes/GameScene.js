@@ -33,8 +33,6 @@ export default class GameScene extends Phaser.Scene {
     this.load.image('food1', new URL('../../assets/food1.png', import.meta.url).href);
     this.load.image('food2', new URL('../../assets/food2.png', import.meta.url).href);
     this.load.image('food3', new URL('../../assets/food3.png', import.meta.url).href);
-
-
   }
 
   create() {
@@ -46,18 +44,17 @@ export default class GameScene extends Phaser.Scene {
     // this.container = this.add.container(400, 300).setVisible(true);
 
     // create though bubble sprite and set it invisible
-    this.bubble = this.add.sprite(0,0, 'bubble').setScale(0.15).setVisible(false);
-    this.cheeseburger = this.add.sprite(2, 0, 'food1').setScale(0.10).setVisible(false);
-    this.customer1 = this.add.sprite(-50, 55, 'person1').setScale(0.15).setVisible(false)
-    this.customer2 = this.add.sprite(-50, 55, 'person2').setScale(0.15).setVisible(false)
+    this.bubble = this.add.sprite(0, 0, 'bubble').setScale(0.15).setVisible(false);
+    this.cheeseburger = this.add.sprite(2, 0, 'food1').setScale(0.1).setVisible(false);
+    this.customer1 = this.add.sprite(-50, 55, 'person1').setScale(0.15).setVisible(false);
+    this.customer2 = this.add.sprite(-50, 55, 'person2').setScale(0.15).setVisible(false);
 
-
-    // this.container.add([ this.bubble, this.cheeseburger, this.customer1]);
+    // this.container.add([this.bubble, this.cheeseburger, this.customer1]);
 
     // this.rt = this.add.renderTexture(100, 100, 200, 150);
 
     // this.rt.draw(this.container)
-    
+
     // Create an instance of a renderTexture Obj
     // const rt = this.make.renderTexture({ width: 512, height: 512 });
     // console.log(rt)
@@ -74,7 +71,6 @@ export default class GameScene extends Phaser.Scene {
     this.customers.map((customer) => {
       customer.update();
     });
-
   }
 
   getRandomPosition() {
@@ -123,76 +119,81 @@ export default class GameScene extends Phaser.Scene {
     this.spawnZone = polygon;
   }
 
-  addCustomer(isFirstcustomer){
+  addCustomer(isFirstcustomer) {
     const rt = [];
     const myTextures = [];
 
     let count = 0;
-    for (let i = 1; i < 4; i++){
+    for (let i = 1; i < 4; i++) {
       // for (let j = 1; j < 3; j++){
-        rt.push(this.add.renderTexture(this.game.config.width / 4, isFirstcustomer ? this.game.config.width / 2 : 0, this.game.config.width / 5, this.game.config.height / 4));
-        this.drawTexture(rt, myTextures, i, count);
-      count ++;
+      rt.push(
+        this.add.renderTexture(
+          this.game.config.width / 4,
+          isFirstcustomer ? this.game.config.width / 2 : 0,
+          this.game.config.width / 5,
+          this.game.config.height / 4
+        )
+      );
+      this.drawTexture(rt, myTextures, i, count);
+      count++;
       // }
       rt[i - 1].setOrigin(0.5);
-
     }
     console.log(rt);
-    // let rt = this.add.renderTexture(this.game.config.width / 4, isFirstcustomer ? this.game.config.width / 2 : 0, this.game.config.width / 5, this.game.config.height / 4);
-    // rt.setOrigin(0.5);
-    // this.physics.add.exisiting(rt);
-    // this.customerGroup.add(myTextures);
-    myTextures.map(t => {this.customerGroup.add(t)})
+    //let rt = this.add.renderTexture(this.game.config.width / 4, isFirstcustomer ? this.game.config.width / 2 : 0, this.game.config.width / 5, this.game.config.height / 4);
+    //rt.setOrigin(0.5);
+    //this.physics.add.exisiting(rt);
+    //console.log('textures:', myTextures);
+    //this.customerGroup.add(rt);
+    // myTextures.map((t) => {
+    //   this.customerGroup.add(t);
+    // });
     //this.customerGroup.add();
-    // this.drawTexture(rt);
-    this.drawCustomer(myTextures);
+    //this.drawTexture(rt, myTextures, i, count);
+    this.drawCustomer(myTextures, rt[0]);
   }
 
-  drawTexture(rt, myTextures, i, count){
+  drawTexture(rt, myTextures, i, count) {
     // console.log(rt[i-1]);
     // console.log('REACHME 02');
     // for (let i = 1; i < 3; i++){
-      // for (let j = 1; j < 3; j++){
-        rt[i - 1].draw({
-        img: 'person' + i, 
-        x: (rt.width / 2) - 25,
-        y: (rt.height / 2) + 25,
-      });
-      rt[i - 1].draw({
-        img: 'food' + i, 
-        x: (rt.width / 2) + 32,
-        y: (rt.height / 2) - 25,
-      });
-      rt[i - 1].draw({
-        img: 'bubble', 
-        x: (rt.width / 2) + 30,
-        y: (rt.height / 2) - 25,
-      });
-      console.log(i);
-      myTextures.push(rt[i - 1].saveTexture('doodle' + count))
+    // for (let j = 1; j < 3; j++){
+    rt[i - 1].draw({
+      img: 'person' + i,
+      x: rt.width / 2 - 25,
+      y: rt.height / 2 + 25,
+    });
+    rt[i - 1].draw({
+      img: 'food' + i,
+      x: rt.width / 2 + 32,
+      y: rt.height / 2 - 25,
+    });
+    rt[i - 1].draw({
+      img: 'bubble',
+      x: rt.width / 2 + 30,
+      y: rt.height / 2 - 25,
+    });
+    console.log(i);
+    myTextures.push(rt[i - 1].saveTexture('doodle' + count));
     // }
     // }
     console.log('REACHME 09');
-    console.log(myTextures)
+    console.log(myTextures);
   }
 
-  drawCustomer(myTextures){
+  drawCustomer(myTextures, rt) {
     // console.log(myCustomer);
-    
-    rt.draw(this.bubble, (rt.width / 2) + 30, (rt.height / 2) -25);
-    rt.draw(this.cheeseburger, (rt.width / 2) + 32, (rt.height / 2) -25);
-    rt.draw(this.customer1, (rt.width / 2) - 25, (rt.height / 2) + 25);
+
+    rt.draw(this.bubble, rt.width / 2 + 30, rt.height / 2 - 25);
+    rt.draw(this.cheeseburger, rt.width / 2 + 32, rt.height / 2 - 25);
+    rt.draw(this.customer1, rt.width / 2 - 25, rt.height / 2 + 25);
     rt.setVisible(false);
     // rt.removeCollider(rt);
     rt.saveTexture('doodle1');
     console.log(rt);
-    rt.draw(this.customer2, (rt.width / 2) - 25, (rt.height / 2) + 25);
+    rt.draw(this.customer2, rt.width / 2 - 25, rt.height / 2 + 25);
     rt.saveTexture('doodle2');
     console.log(rt);
-
-
-
-
 
     // Generate an array of 8 random positions for the customers to spawn
     const customerPositions = [];
@@ -207,11 +208,10 @@ export default class GameScene extends Phaser.Scene {
     // this.rt = this.physics.add.existing(this.rt, 0);
     // this.rt.batchDraw(this.bubble, 200, 175);
 
-
     console.log(customerPositions);
     customerPositions.map((position, idx) => {
       const customer = new Customer(this, position.x, position.y, myTextures[idx].key);
-      console.log(myTextures[idx].key)
+      console.log(myTextures[idx].key);
       // this.rt = new Customer(this, position.x, position.y, position.img);
       this.customers.push(customer);
 
